@@ -2,6 +2,7 @@ var tabla;
 var puntos = 0;
 var filas = 4;
 var columnas = 4;
+var suma = 0;
 
 // Windows.onload sirve para cerar la funcion apenas cargue la pagina
 window.onload = function() {
@@ -36,7 +37,7 @@ function ActualizarVentana(cuadro, num) {
             cuadro.classList.add("n"+num.toString());
         } else {
             cuadro.classList.add("n8192");
-        }                
+        }
     }
 }
 
@@ -66,7 +67,7 @@ function filtro(fila){
 }
 
 function mover(fila) {
-    //[0, 2, 2, 2] 
+    //[0, 2, 2, 2]
     fila = filtro(fila); //[2, 2, 2]
     for (let i = 0; i < fila.length-1; i++){
         if (fila[i] == fila[i+1]) {
@@ -76,7 +77,7 @@ function mover(fila) {
         }
     } //[4, 0, 2]
     fila = filtro(fila); //[4, 2]
- 
+
     while (fila.length < columnas) {
         fila.push(0);
     } //[4, 2, 0, 0]
@@ -157,6 +158,7 @@ function CreaDos() {
         let c = Math.floor(Math.random() * columnas);
         if (tabla[f][c] == 0) {
             tabla[f][c] = 2;
+            suma += 2;
             let cuadro = document.getElementById(f.toString() + "-" + c.toString());
             cuadro.innerText = "2";
             cuadro.classList.add("x2");
@@ -169,7 +171,7 @@ function Vacio() {
     let cont = 0;
     for (let f = 0; f < filas; f++) {
         for (let c = 0; c < columnas; c++) {
-            if (tabla[f][c] == 0) { 
+            if (tabla[f][c] == 0) {
                 return true;
             }
         }
