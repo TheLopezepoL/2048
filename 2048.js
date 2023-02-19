@@ -10,8 +10,12 @@ window.onload = function() {
 
 function IniciarJuego() {
 
-    tabla = [[0, 0, 0, 0],[0, 0, 0, 0],[0, 0, 0, 0],[0, 0, 0, 0]]
+    tabla = [[0, 0, 0, 0]
+            ,[0, 0, 0, 0]
+            ,[0, 0, 0, 0]
+            ,[0, 0, 0, 0]]
 
+    // crea los cuadros
     for (let f = 0; f < filas; f++) {
         for (let c = 0; c < columnas; c++) {
             let cuadro = document.createElement("div"); // Crea un div dentro del div
@@ -156,10 +160,11 @@ function CreaDos() {
         let f = Math.floor(Math.random() * filas);
         let c = Math.floor(Math.random() * columnas);
         if (tabla[f][c] == 0) {
-            tabla[f][c] = 2;
+            let num = Math.random() < 0.8 ? 2 : 4;
+            tabla[f][c] = num;
             let cuadro = document.getElementById(f.toString() + "-" + c.toString());
-            cuadro.innerText = "2";
-            cuadro.classList.add("x2");
+            cuadro.innerText = num,toString();
+            cuadro.classList.add("n" + num.toString());
             bandera = true;
         }
     }
