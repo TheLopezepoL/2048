@@ -213,6 +213,7 @@ function CreaDos() {
             let num = Math.random() < 0.8 ? 2 : 4;
             tabla[f][c] = num;
             suma += num;
+            document.getElementById("Suma").innerHTML = suma
             let cuadro = document.getElementById(f.toString() + "-" + c.toString());
             cuadro.innerText = num,toString();
             cuadro.classList.add("n" + num.toString());
