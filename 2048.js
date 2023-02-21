@@ -37,7 +37,7 @@ function IniciarJuego() {
 }
 
 function IniciarTiempo(){
-    document.getElementById("Tiempo").innerHTML = segundos + " segundos";
+    document.getElementById("Tiempo").innerHTML = segundos + " segundos|";
     if(banderaT == true){
         segundos++;
     }
@@ -117,8 +117,8 @@ document.addEventListener('keyup', (e) => {
         
     }
 
-    document.getElementById("puntos").innerText = puntos;
-    document.getElementById("movimientos").innerText = movimientos;
+    document.getElementById("puntos").innerText = puntos + "|";
+    document.getElementById("movimientos").innerText = movimientos + "|";
 })
 
 function filtro(fila){
@@ -213,7 +213,7 @@ function CreaDos() {
             let num = Math.random() < 0.8 ? 2 : 4;
             tabla[f][c] = num;
             suma += num;
-            document.getElementById("Suma").innerHTML = suma
+            document.getElementById("Suma").innerHTML = suma + "|";
             let cuadro = document.getElementById(f.toString() + "-" + c.toString());
             cuadro.innerText = num,toString();
             cuadro.classList.add("n" + num.toString());
