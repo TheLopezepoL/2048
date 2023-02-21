@@ -3,11 +3,14 @@ var puntos = 0;
 var filas = 4;
 var columnas = 4;
 var movimientos = 0;
+var segundos = 0;
+var banderaT = false;
 var suma = 0;
 
 // Windows.onload sirve para cerar la funcion apenas cargue la pagina
 window.onload = function() {
     IniciarJuego();
+    IniciarTiempo();
 }
 
 function IniciarJuego() {
@@ -33,6 +36,14 @@ function IniciarJuego() {
 
 }
 
+function IniciarTiempo(){
+    document.getElementById("Tiempo").innerHTML = segundos + " segundos";
+    if(banderaT == true){
+        segundos++;
+    }
+    setTimeout("IniciarTiempo()", 1000);
+}
+
 function ActualizarVentana(cuadro, num) {
     cuadro.innerText = "";
     cuadro.classList.value = "";
@@ -49,35 +60,53 @@ function ActualizarVentana(cuadro, num) {
 
 document.addEventListener('keyup', (e) => {
     if (e.code == "ArrowLeft") {
-        if (finaliza()){
+        if (canMoveRows()){
+            Izquierda();
+            CreaDos();
+            movimientos++;
+        }
+        
+        else if (finaliza()){
             alert("No hay más movimientos disponiles")
         }
-        Izquierda();
-        CreaDos();
+        
         
     }
     else if (e.code == "ArrowRight") {
-        if (finaliza()){
+        printM();
+        if (canMoveRows()){
+            Derecha();
+            CreaDos();
+            movimientos++;
+        }
+        
+        else if (finaliza()){
             alert("No hay más movimientos disponiles")
         }
-        Derecha();
-        CreaDos();
         
     }
     else if (e.code == "ArrowUp") {
-        if (finaliza()){
+        if (canMoveColumns()){
+            Arriba();
+            CreaDos();
+            movimientos++;
+        }
+        
+        else if (finaliza()){
             alert("No hay más movimientos disponiles")
         }
-        Arriba();
-        CreaDos();
         
     }
     else if (e.code == "ArrowDown") {
-        if (finaliza()){
+        if (canMoveColumns()){
+            Abajo();
+            CreaDos();
+            movimientos++;
+        }
+        
+        else if (finaliza()){
             alert("No hay más movimientos disponiles")
         }
-        Abajo();
-        CreaDos();
         
     }
 
@@ -105,7 +134,7 @@ function mover(fila) {
         fila.push(0);
     } //[4, 2, 0, 0]
 
-    //movimientos++;
+    
     
     return fila;
 }
@@ -196,30 +225,47 @@ function CreaDos() {
 }
 
 function finaliza(){
-    
-    if (!Vacio()){
-        
-        for (let f = 0; f < filas; f++) {
+    // Finalicia cuando no esté vacio ni haya movimientos disponibles
+    return(!(Vacio() || canMoveColumns() || canMoveRows())); 
+
+
+}
+
+function canMoveRows(){
+    if (Vacio()){ //si hay algun espacio vacio 
+        return true;
+    }
+
+    else{ 
+        for (let f = 0; f < filas; f++) { 
             for (let c = 0; c < columnas - 1; c++) {
                 if (tabla[f][c] == tabla[f][c+1]) { 
-                    return false;
+                    return true; // verificar que pueda haber movimiento en la fila
                 }
             }
         }
 
-        for (let f = 0; f < filas - 1; f++) {
-            for (let c = 0; c < columnas; c++) {
-                if(tabla[f][c] == tabla[f+1][c]){
-                    return false;
-                } 
-            }
-        }
-               
-        return true;
+        return false; 
+    }
+    
 
+}
+
+function canMoveColumns(){
+    if (Vacio()){       
+        return true;
     }
 
+    else{
+        for (let f = 0; f < filas - 1; f++) {
+            for (let c = 0; c < columnas; c++) {
+                if (tabla[f][c] == tabla[f+1][c]) { 
+                    return true; // verificar que pueda haber movimiento en la columna
+                }
+            }
+        }
 
+        return false;} 
 }
 
 function Vacio() {
@@ -234,4 +280,3 @@ function Vacio() {
     return false;
     
 }
-
