@@ -126,20 +126,19 @@ function filtro(fila){
 }
 
 function mover(fila) {
-    //[0, 2, 2, 2]
-    fila = filtro(fila); //[2, 2, 2]
+    fila = filtro(fila);
     for (let i = 0; i < fila.length-1; i++){
         if (fila[i] == fila[i+1]) {
             fila[i] *= 2;
             fila[i+1] = 0;
             puntos += fila[i];
         }
-    } //[4, 0, 2]
-    fila = filtro(fila); //[4, 2]
+    }
+    fila = filtro(fila);
 
     while (fila.length < columnas) {
         fila.push(0);
-    } //[4, 2, 0, 0]
+    }
 
     
     
@@ -161,10 +160,10 @@ function Izquierda() {
 
 function Derecha() {
     for (let f = 0; f < filas; f++) {
-        let fila = tabla[f];         //[0, 2, 2, 2]
-        fila.reverse();              //[2, 2, 2, 0]
-        fila = mover(fila)            //[4, 2, 0, 0]
-        tabla[f] = fila.reverse();   //[0, 0, 2, 4];
+        let fila = tabla[f];        
+        fila.reverse();              
+        fila = mover(fila)           
+        tabla[f] = fila.reverse();   
         for (let c = 0; c < columnas; c++){
             let cuadro = document.getElementById(f.toString() + "-" + c.toString());
             let num = tabla[f][c];
@@ -177,10 +176,6 @@ function Arriba() {
     for (let c = 0; c < columnas; c++) {
         let fila = [tabla[0][c], tabla[1][c], tabla[2][c], tabla[3][c]];
         fila = mover(fila);
-        // tabla[0][c] = fila[0];
-        // tabla[1][c] = fila[1];
-        // tabla[2][c] = fila[2];
-        // tabla[3][c] = fila[3];
         for (let f = 0; f < filas; f++){
             tabla[f][c] = fila[f];
             let cuadro = document.getElementById(f.toString() + "-" + c.toString());
@@ -193,13 +188,9 @@ function Arriba() {
 function Abajo() {
     for (let c = 0; c < columnas; c++) {
         let fila = [tabla[0][c], tabla[1][c], tabla[2][c], tabla[3][c]];
-        fila.reverse(); // le da vuelta a la fila
+        fila.reverse(); 
         fila = mover(fila);
-        fila.reverse(); // le da vuelta a la fila
-        // tabla[0][c] = fila[0];
-        // tabla[1][c] = fila[1];
-        // tabla[2][c] = fila[2];
-        // tabla[3][c] = fila[3];
+        fila.reverse(); 
         for (let f = 0; f < filas; f++){
             tabla[f][c] = fila[f];
             let cuadro = document.getElementById(f.toString() + "-" + c.toString());
