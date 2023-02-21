@@ -61,42 +61,59 @@ function ActualizarVentana(cuadro, num) {
 document.addEventListener('keyup', (e) => {
     if (e.code == "ArrowLeft") {
         banderaT = true;
-        if (finaliza()){
+        if (canMoveRows()){
+            Izquierda();
+            CreaDos();
+            movimientos++;
+        }
+        
+        else if (finaliza()){
             banderaT = false;
             alert("No hay más movimientos disponiles")
         }
-        Izquierda();
-        CreaDos();
+        
         
     }
     else if (e.code == "ArrowRight") {
         banderaT = true;
-        if (finaliza()){
+        if (canMoveRows()){
+            Derecha();
+            CreaDos();
+            movimientos++;
+        }
+        
+        else if (finaliza()){
             banderaT = false;
             alert("No hay más movimientos disponiles")
         }
-        Derecha();
-        CreaDos();
         
     }
     else if (e.code == "ArrowUp") {
         banderaT = true;
-        if (finaliza()){
+        if (canMoveColumns()){
+            Arriba();
+            CreaDos();
+            movimientos++;
+        }
+        
+        else if (finaliza()){
             banderaT = false;
             alert("No hay más movimientos disponiles")
         }
-        Arriba();
-        CreaDos();
         
     }
     else if (e.code == "ArrowDown") {
         banderaT = true;
-        if (finaliza()){
+        if (canMoveColumns()){
+            Abajo();
+            CreaDos();
+            movimientos++;
+        }
+        
+        else if (finaliza()){
             banderaT = false;
             alert("No hay más movimientos disponiles")
         }
-        Abajo();
-        CreaDos();
         
     }
 
@@ -124,7 +141,7 @@ function mover(fila) {
         fila.push(0);
     } //[4, 2, 0, 0]
 
-    //movimientos++;
+    
     
     return fila;
 }
@@ -215,30 +232,47 @@ function CreaDos() {
 }
 
 function finaliza(){
-    
-    if (!Vacio()){
-        
-        for (let f = 0; f < filas; f++) {
+    // Finalicia cuando no esté vacio ni haya movimientos disponibles
+    return(!(Vacio() || canMoveColumns() || canMoveRows())); 
+
+
+}
+
+function canMoveRows(){
+    if (Vacio()){ //si hay algun espacio vacio 
+        return true;
+    }
+
+    else{ 
+        for (let f = 0; f < filas; f++) { 
             for (let c = 0; c < columnas - 1; c++) {
                 if (tabla[f][c] == tabla[f][c+1]) { 
-                    return false;
+                    return true; // verificar que pueda haber movimiento en la fila
                 }
             }
         }
 
-        for (let f = 0; f < filas - 1; f++) {
-            for (let c = 0; c < columnas; c++) {
-                if(tabla[f][c] == tabla[f+1][c]){
-                    return false;
-                } 
-            }
-        }
-               
-        return true;
+        return false; 
+    }
+    
 
+}
+
+function canMoveColumns(){
+    if (Vacio()){       
+        return true;
     }
 
+    else{
+        for (let f = 0; f < filas - 1; f++) {
+            for (let c = 0; c < columnas; c++) {
+                if (tabla[f][c] == tabla[f+1][c]) { 
+                    return true; // verificar que pueda haber movimiento en la columna
+                }
+            }
+        }
 
+        return false;} 
 }
 
 function Vacio() {
@@ -253,4 +287,3 @@ function Vacio() {
     return false;
     
 }
-
