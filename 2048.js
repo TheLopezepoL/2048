@@ -4,6 +4,7 @@ var filas = 4;
 var columnas = 4;
 var movimientos = 0;
 var segundos = 0;
+var minutos = 0;
 var banderaT = false;
 var suma = 0;
 
@@ -37,9 +38,16 @@ function IniciarJuego() {
 }
 
 function IniciarTiempo(){
-    document.getElementById("Tiempo").innerHTML = segundos + " segundos|";
+    document.getElementById("Tiempo").innerHTML = minutos + " m " + segundos + " s|";
     if(banderaT == true){
         segundos++;
+    }
+    if(segundos%60 == 0){
+        if(segundos != 0){
+            minutos++;
+            segundos = 0;
+            document.getElementById("Tiempo").innerHTML = minutos + " m " + segundos + " s|";
+        }
     }
     setTimeout("IniciarTiempo()", 1000);
 }
