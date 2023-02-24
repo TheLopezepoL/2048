@@ -7,20 +7,36 @@
 
         <!--Se llaman a el css como estilo de hoja y al script-->
         <link rel="stylesheet" href="2048.css">
-        <script src="2048.js"></script>
+        
     </head>
+
+
 
     <!--El hr es la linea horizontal que divide el h1 y h2-->
     <body>
         <h1>TC0-2048</h1>
         <hr>
-        <h2>|Puntos: <span id="puntos">0</span> 
-            |Movimientos: <span id="movimientos">0</span> 
-            |Suma Total: <span id="Suma">0</span>
-            |Tiempo: <span id = "Tiempo"></span>
-        </h2>
+        <h2>Puntos: <span id="puntos">0</span> &nbsp;
+            Tiempo: <span id = "Tiempo1"></span>  <br> 
+        <button id="resumeBtn"> Resumen </button>
+        <button id="restartBtn"> New game </button> </h2>
         <!--El div selecciona una parte de la hoja que sera el tablero-->
-        <div id="tabla">
-        </div>
+        <div id="tabla"> </div>
+            
     </body>
+
+    <div id ="resumen" class="resumenContenedor">
+        <div class="modal">
+        <h2>Resumen de partida</h2>
+        <p> 
+            Movimientos: <span id="movimientos">0</span> <br>
+            Suma Total: <span id="Suma">0</span><br>
+            Tiempo: <span id = "Tiempo"></span>
+        <p>
+        <button id="close"> Cerrar </button>
+        </div>
+    </div> 
+    
+    <script src="2048.js"></script>
+
 </html>

@@ -16,6 +16,8 @@ window.onload = function() {
 
 function IniciarJuego() {
 
+
+
     tabla = [[0, 0, 0, 0]
             ,[0, 0, 0, 0]
             ,[0, 0, 0, 0]
@@ -38,7 +40,8 @@ function IniciarJuego() {
 }
 
 function IniciarTiempo(){
-    document.getElementById("Tiempo").innerHTML = minutos + " m " + segundos + " s|";
+    document.getElementById("Tiempo").innerHTML = minutos + " m " + segundos + " s";
+    document.getElementById("Tiempo1").innerHTML = minutos + " m " + segundos + " s";
     if(banderaT == true){
         segundos++;
     }
@@ -46,7 +49,8 @@ function IniciarTiempo(){
         if(segundos != 0){
             minutos++;
             segundos = 0;
-            document.getElementById("Tiempo").innerHTML = minutos + " m " + segundos + " s|";
+            document.getElementById("Tiempo").innerHTML = minutos + " m " + segundos + " s";
+            document.getElementById("Tiempo1").innerHTML = minutos + " m " + segundos + " s";
         }
     }
     setTimeout("IniciarTiempo()", 1000);
@@ -125,8 +129,8 @@ document.addEventListener('keyup', (e) => {
         
     }
 
-    document.getElementById("puntos").innerText = puntos + "|";
-    document.getElementById("movimientos").innerText = movimientos + "|";
+    document.getElementById("puntos").innerText = puntos;
+    document.getElementById("movimientos").innerText = movimientos;
 })
 
 function filtro(fila){
@@ -221,7 +225,7 @@ function CreaDos() {
             let num = Math.random() < 0.8 ? 2 : 4;
             tabla[f][c] = num;
             suma += num;
-            document.getElementById("Suma").innerHTML = suma + "|";
+            document.getElementById("Suma").innerHTML = suma;
             let cuadro = document.getElementById(f.toString() + "-" + c.toString());
             cuadro.innerText = num,toString();
             cuadro.classList.add("n" + num.toString());
@@ -287,3 +291,17 @@ function Vacio() {
     return false;
     
 }
+
+document.getElementById("resumeBtn").addEventListener('click', function() {
+    banderaT = false;
+    document.getElementById("resumen").classList.add('show');  
+  });
+  
+document.getElementById("close").addEventListener('click', function(e) {
+    e.preventDefault();
+    banderaT= 
+    document.getElementById("resumen").classList.remove('show');
+  });
+
+
+  
