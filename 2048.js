@@ -26,7 +26,7 @@ function IniciarJuego() {
     // crea los cuadros
     for (let f = 0; f < filas; f++) {
         for (let c = 0; c < columnas; c++) {
-            let cuadro = document.createElement("div"); // Crea un div dentro del div
+            var cuadro = document.createElement("div"); // Crea un div dentro del div
             
             cuadro.id = f.toString() + "-" + c.toString();
             let num = tabla[f][c];
@@ -42,6 +42,7 @@ function IniciarJuego() {
 function IniciarTiempo(){
     document.getElementById("Tiempo").innerHTML = minutos + " m " + segundos + " s";
     document.getElementById("Tiempo1").innerHTML = minutos + " m " + segundos + " s";
+    document.getElementById("TiempoF").innerHTML = minutos + " m " + segundos + " s";
     if(banderaT == true){
         segundos++;
     }
@@ -51,6 +52,7 @@ function IniciarTiempo(){
             segundos = 0;
             document.getElementById("Tiempo").innerHTML = minutos + " m " + segundos + " s";
             document.getElementById("Tiempo1").innerHTML = minutos + " m " + segundos + " s";
+            document.getElementById("TiempoF").innerHTML = minutos + " m " + segundos + " s";
         }
     }
     setTimeout("IniciarTiempo()", 1000);
@@ -81,7 +83,8 @@ document.addEventListener('keyup', (e) => {
         
         else if (finaliza()){
             banderaT = false;
-            alert("No hay más movimientos disponiles")
+            document.getElementById("Final").classList.add('show');  
+            //alert("No hay más movimientos disponiles")
         }
         
         
@@ -96,7 +99,8 @@ document.addEventListener('keyup', (e) => {
         
         else if (finaliza()){
             banderaT = false;
-            alert("No hay más movimientos disponiles")
+            document.getElementById("Final").classList.add('show');  
+            //alert("No hay más movimientos disponiles")
         }
         
     }
@@ -110,7 +114,8 @@ document.addEventListener('keyup', (e) => {
         
         else if (finaliza()){
             banderaT = false;
-            alert("No hay más movimientos disponiles")
+            document.getElementById("Final").classList.add('show');  
+            //alert("No hay más movimientos disponiles")
         }
         
     }
@@ -124,13 +129,16 @@ document.addEventListener('keyup', (e) => {
         
         else if (finaliza()){
             banderaT = false;
-            alert("No hay más movimientos disponiles")
+            document.getElementById("Final").classList.add('show');  
+            //alert("No hay más movimientos disponiles")
         }
         
     }
 
     document.getElementById("puntos").innerText = puntos;
     document.getElementById("movimientos").innerText = movimientos;
+    document.getElementById("puntosF").innerText = puntos;
+    document.getElementById("movimientosF").innerText = movimientos;
 })
 
 function filtro(fila){
@@ -226,6 +234,7 @@ function CreaDos() {
             tabla[f][c] = num;
             suma += num;
             document.getElementById("Suma").innerHTML = suma;
+            document.getElementById("SumaF").innerHTML = suma;
             let cuadro = document.getElementById(f.toString() + "-" + c.toString());
             cuadro.innerText = num,toString();
             cuadro.classList.add("n" + num.toString());
@@ -292,6 +301,21 @@ function Vacio() {
     
 }
 
+let refresh = document.getElementById('restartBtn');
+refresh.addEventListener('click', _ => {
+    location.reload();
+})
+
+let refresh2 = document.getElementById('reiniciar');
+refresh2.addEventListener('click', _ => {
+    location.reload();
+})
+
+let refresh3 = document.getElementById('Final');
+refresh3.addEventListener('click', _ => {
+    location.reload();
+})
+
 document.getElementById("resumeBtn").addEventListener('click', function() {
     banderaT = false;
     document.getElementById("resumen").classList.add('show');  
@@ -299,7 +323,7 @@ document.getElementById("resumeBtn").addEventListener('click', function() {
   
 document.getElementById("close").addEventListener('click', function(e) {
     e.preventDefault();
-    banderaT= 
+    banderaT = true; 
     document.getElementById("resumen").classList.remove('show');
   });
 

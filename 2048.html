@@ -7,7 +7,6 @@
 
         <!--Se llaman a el css como estilo de hoja y al script-->
         <link rel="stylesheet" href="2048.css">
-        
     </head>
 
 
@@ -18,11 +17,20 @@
         <hr>
         <h2>Puntos: <span id="puntos">0</span> &nbsp;
             Tiempo: <span id = "Tiempo1"></span>  <br> 
-        <button id="resumeBtn"> Resumen </button>
-        <button id="restartBtn"> New game </button> </h2>
+            <h3>
+
+            </h3>
+            <button id="restartBtn" role="button" class="button"> New game </button> 
+            <h4>
+
+            </h4>
+        </h2>
         <!--El div selecciona una parte de la hoja que sera el tablero-->
         <div id="tabla"> </div>
-            
+        <h5>
+
+        </h5>
+        <button id="resumeBtn" role="button" class="button">Resumen </button>
     </body>
 
     <div id ="resumen" class="resumenContenedor">
@@ -33,10 +41,26 @@
             Suma Total: <span id="Suma">0</span><br>
             Tiempo: <span id = "Tiempo"></span>
         <p>
-        <button id="close"> Cerrar </button>
+        <h3><button id="close" role="button" class="button">Cerrar </button>
+            <button id="reiniciar" role="button" class="button">New Game </button>
+        </h3>
         </div>
     </div> 
-    
+
+    <div id ="Final" class="resumenContenedor">
+        <div class="modal">
+        <h2>Game Over</h2>
+        <p>Perdiste :(</p>
+        <h3>Resumen final</h3>
+        <p> 
+            Movimientos: <span id="movimientosF">0</span> <br>
+            Suma Total: <span id="SumaF">0</span><br>
+            Puntos: <span id="puntosF">0</span><br>
+            Tiempo: <span id = "TiempoF"></span>
+        <p>
+            <button id="gameover" role="button" class="button">New Game </button>
+        </div>
+    </div>
     <script src="2048.js"></script>
 
 </html>
