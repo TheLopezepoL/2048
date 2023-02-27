@@ -1,3 +1,10 @@
+/*
+TC0 - 2048
+Kevin Jiménez Molinares 2021475925
+Sebastián López Herrera 2019053591
+Josafat Badilla Rodríguez 2020257662
+*/
+
 var tabla;
 var puntos = 0;
 var filas = 4;
@@ -34,8 +41,8 @@ function IniciarJuego() {
             document.getElementById("tabla").append(cuadro);
         }
     }
-    CreaDos();
-    CreaDos();
+    NuevoNumero();
+    NuevoNumero();
 
 }
 
@@ -59,32 +66,34 @@ function IniciarTiempo(){
 }
 
 function ActualizarVentana(cuadro, num) {
+    //Actualiza cada cuadro de la tabla
     cuadro.innerText = "";
     cuadro.classList.value = "";
     cuadro.classList.add("ventana");
     if (num > 0) {
         cuadro.innerText = num.toString();
-        if (num <= 2048) {
+        if (num < 2048) {
             cuadro.classList.add("n"+num.toString());
         } else {
-            cuadro.classList.add("n8192");
+            document.getElementById("resumen").classList.add('show');
+            banderaT=false;  
         }
     }
 }
 
 document.addEventListener('keyup', (e) => {
+    //Lee las teclas presionadas
     if (e.code == "ArrowLeft") {
         banderaT = true;
         if (canMoveRows()){
             Izquierda();
-            CreaDos();
+            NuevoNumero();
             movimientos++;
         }
         
         else if (finaliza()){
             banderaT = false;
             document.getElementById("Final").classList.add('show');  
-            //alert("No hay más movimientos disponiles")
         }
         
         
@@ -93,14 +102,13 @@ document.addEventListener('keyup', (e) => {
         banderaT = true;
         if (canMoveRows()){
             Derecha();
-            CreaDos();
+            NuevoNumero();
             movimientos++;
         }
         
         else if (finaliza()){
             banderaT = false;
             document.getElementById("Final").classList.add('show');  
-            //alert("No hay más movimientos disponiles")
         }
         
     }
@@ -108,14 +116,13 @@ document.addEventListener('keyup', (e) => {
         banderaT = true;
         if (canMoveColumns()){
             Arriba();
-            CreaDos();
+            NuevoNumero();
             movimientos++;
         }
         
         else if (finaliza()){
             banderaT = false;
             document.getElementById("Final").classList.add('show');  
-            //alert("No hay más movimientos disponiles")
         }
         
     }
@@ -123,14 +130,13 @@ document.addEventListener('keyup', (e) => {
         banderaT = true;
         if (canMoveColumns()){
             Abajo();
-            CreaDos();
+            NuevoNumero();
             movimientos++;
         }
         
         else if (finaliza()){
             banderaT = false;
             document.getElementById("Final").classList.add('show');  
-            //alert("No hay más movimientos disponiles")
         }
         
     }
@@ -142,10 +148,12 @@ document.addEventListener('keyup', (e) => {
 })
 
 function filtro(fila){
-    return fila.filter(num => num != 0); //create new array of all nums != 0
+    // Crea un nuevo arreglo con todos los números sin los números 0
+    return fila.filter(num => num != 0);
 }
 
 function mover(fila) {
+    // Mueve los elementos dentro de cada fila o columna , valida si son iguales y suma el valor de estos
     fila = filtro(fila);
     for (let i = 0; i < fila.length-1; i++){
         if (fila[i] == fila[i+1]) {
@@ -156,16 +164,15 @@ function mover(fila) {
     }
     fila = filtro(fila);
 
-    while (fila.length < columnas) {
+    while (fila.length < columnas) { // rellena la fila con 0 si quedan espacios libres
         fila.push(0);
     }
 
-    
-    
     return fila;
 }
 
 function Izquierda() {
+    //Mueve los elementos de las filas hacia la izquiera
     for (let f = 0; f < filas; f++) {
         let fila = tabla[f];
         fila = mover(fila);
@@ -179,22 +186,24 @@ function Izquierda() {
 }
 
 function Derecha() {
+    //Mueve los elementos de las filas hacia la derecha
     for (let f = 0; f < filas; f++) {
         let fila = tabla[f];        
-        fila.reverse();              
+        fila.reverse(); //le da vuelta a la fila para usar la misma función de mover              
         fila = mover(fila)           
         tabla[f] = fila.reverse();   
         for (let c = 0; c < columnas; c++){
             let cuadro = document.getElementById(f.toString() + "-" + c.toString());
             let num = tabla[f][c];
-            ActualizarVentana(cuadro, num);
+            ActualizarVentana(cuadro, num); //actualiza el estado del cuadro necesario
         }
     }
 }
 
 function Arriba() {
+    //Mueve los elementos de las columnas hacia arriba
     for (let c = 0; c < columnas; c++) {
-        let fila = [tabla[0][c], tabla[1][c], tabla[2][c], tabla[3][c]];
+        let fila = [tabla[0][c], tabla[1][c], tabla[2][c], tabla[3][c]]; //organiza los elementos de una columna como una fila
         fila = mover(fila);
         for (let f = 0; f < filas; f++){
             tabla[f][c] = fila[f];
@@ -206,10 +215,11 @@ function Arriba() {
 }
 
 function Abajo() {
+    //Mueve los elementos de las columnas hacia abajo
     for (let c = 0; c < columnas; c++) {
-        let fila = [tabla[0][c], tabla[1][c], tabla[2][c], tabla[3][c]];
-        fila.reverse(); 
-        fila = mover(fila);
+        let fila = [tabla[0][c], tabla[1][c], tabla[2][c], tabla[3][c]]; //organiza los elementos de las columna como una fila
+        fila.reverse(); // le da vuelta a la fila
+        fila = mover(fila); 
         fila.reverse(); 
         for (let f = 0; f < filas; f++){
             tabla[f][c] = fila[f];
@@ -220,7 +230,8 @@ function Abajo() {
     }
 }
 
-function CreaDos() {
+function NuevoNumero() {
+    //Crea un nuevo número en el tablero, escoge de manera aleatortia entre 2 o 4
     if (!Vacio()) {
         return;
     }
@@ -230,7 +241,7 @@ function CreaDos() {
         let f = Math.floor(Math.random() * filas);
         let c = Math.floor(Math.random() * columnas);
         if (tabla[f][c] == 0) {
-            let num = Math.random() < 0.8 ? 2 : 4;
+            let num = Math.random() < 0.6 ? 2 : 4;
             tabla[f][c] = num;
             suma += num;
             document.getElementById("Suma").innerHTML = suma;
@@ -245,7 +256,7 @@ function CreaDos() {
 }
 
 function finaliza(){
-    // Finalicia cuando no esté vacio ni haya movimientos disponibles
+    // Finaliza cuando no esté vacio ni haya movimientos disponibles
     return(!(Vacio() || canMoveColumns() || canMoveRows())); 
 
 
@@ -301,8 +312,7 @@ function Vacio() {
     
 }
 
-let refresh = document.getElementById('restartBtn');
-refresh.addEventListener('click', _ => {
+document.getElementById('restartBtn').addEventListener('click', _ => {
     location.reload();
 })
 

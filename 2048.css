@@ -1,3 +1,13 @@
+/*
+TC0 - 2048
+Kevin Jiménez Molinares 2021475925
+Sebastián López Herrera 2019053591
+Josafat Badilla Rodríguez 2020257662
+*/
+
+
+
+
 /*Centra el cuerpo y da la fuente de texto*/
 body{
     font-family: Arial, Helvetica, sans-serif;
@@ -44,7 +54,7 @@ hr {
 
 .resumenContenedor{
     display: flex;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.596);
     align-items: center;
     justify-content: center;
     position: fixed;
@@ -57,7 +67,7 @@ hr {
     transition: opacity 0.5s ease;
   }
 
-.modal {
+.textoContenedor {
     background-color: #b1b3af;
     width: 300px;
     max-width: 100%;
@@ -70,7 +80,6 @@ hr {
 .show {
     pointer-events: auto;
     visibility: visible;
-    opacity: 5;
   }
 
   
@@ -153,7 +162,7 @@ hr {
     color: white;
 }
 .n512{
-    background-color: #edc651;
+    background-color: #f5ce59;
     color: white;
 }
 .n1024{
@@ -161,6 +170,6 @@ hr {
     color: white;
 }
 .n2048{
-    background-color: #ecc230;
+    background-color: #c7a529;
     color: white;
 }
